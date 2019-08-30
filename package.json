@@ -1,0 +1,19 @@
+{
+  "name": "purrinha-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "keywords": [
+    "purrinha"
+  ],
+  "author": "Diego Lamarão",
+  "license": "ISC",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.6.0",
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
+    "nuxt": "^2.9.2"
+  }
+}
