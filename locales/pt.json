@@ -1,0 +1,10 @@
+{
+	"appName": "Jogo De Stick Online",
+	"language": "Idioma",
+	"players": "Jogadores",
+	"rooms": "Quartos",
+	"home": {
+		"menu": "Menu"
+	},
+	"love": "amor"
+}

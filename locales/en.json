@@ -1,0 +1,10 @@
+{
+  "appName": "Stick Game Online",
+  "language": "Language",
+  "players": "Players",
+  "rooms": "Rooms",
+  "home": {
+    "menu": "Menu"
+  },
+  "love": "love"
+}
