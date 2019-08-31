@@ -1,0 +1,11 @@
+$spacings: (("m", "margin"), ("p", "padding"));
+
+$positions: (("t", "top"), ("l", "left"), ("r", "right"), ("b", "bottom"));
+
+$values: (("none", 0),
+  ("auto", "auto"),
+  ("xs", 4px),
+  ("sm", 8px),
+  ("md", 16px),
+  ("lg", 24px),
+  ("xl", 48px));

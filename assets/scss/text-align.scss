@@ -1,0 +1,16 @@
+@import "./mixins/breakpoints.scss";
+@import "./variables/align.scss";
+
+@each $breakpoint in $breakpoint-list {
+  $bp: nth($breakpoint, 1);
+
+  @each $align in $align-list {
+    p.text-#{$bp}-#{$align} {
+      width: 100%;
+
+      @include breakpoint($bp) {
+        text-align: $align;
+      }
+    }
+  }
+}

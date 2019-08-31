@@ -1,0 +1,36 @@
+@import "./variables/spacing";
+
+@each $spacing in $spacings {
+  $spacingKey: nth($spacing, 1);
+  $spacingValue: nth($spacing, 2);
+
+  @each $value in $values {
+    $name: nth($value, 1);
+    $size: nth($value, 2);
+
+    .#{$spacingKey} {
+      &a-#{$name} {
+        #{$spacingValue}: $size;
+      }
+
+      &x-#{$name} {
+        #{$spacingValue}-left: $size;
+        #{$spacingValue}-right: $size;
+      }
+
+      &y-#{$name} {
+        #{$spacingValue}-top: $size;
+        #{$spacingValue}-bottom: $size;
+      }
+
+      @each $position in $positions {
+        $positionKey: nth($position, 1);
+        $positionValue: nth($position, 2);
+
+        &#{$positionKey}-#{$name} {
+          #{$spacingValue}-#{$positionValue}: $size;
+        }
+      }
+    }
+  }
+}

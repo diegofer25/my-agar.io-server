@@ -1,0 +1,14 @@
+@import "./variables/colors";
+
+@each $color in $colors-list {
+  $name: nth($color, 1);
+  $value: nth($color, 2);
+
+  .bg-#{$name} {
+    background-color: $value;
+  }
+
+  .text-#{$name} {
+    color: $value;
+  }
+}

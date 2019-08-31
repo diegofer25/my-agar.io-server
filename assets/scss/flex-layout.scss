@@ -1,0 +1,59 @@
+@import "./variables/flex-layout";
+
+.flex {
+  display: flex;
+
+  @each $direction in $direction-list {
+    &.#{$direction} {
+      flex-direction: $direction;
+    }
+  }
+
+  @each $wrap in $wrap-list {
+    &.#{$wrap} {
+      flex-wrap: $wrap;
+    }
+  }
+
+  @each $justify-content in $justify-content-list {
+    &.justify-#{$justify-content} {
+      justify-content: $justify-content;
+    }
+  }
+
+  @each $align-items in $align-items-list {
+    &.align-items-#{$align-items} {
+      align-items: $align-items;
+    }
+  }
+
+  @each $align-content in $align-content-list {
+    &.align-#{$align-content} {
+      align-content: $align-content;
+    }
+  }
+}
+
+.flex-item {
+  @each $align-self in $align-self-list {
+    &.align-self-#{$align-self} {
+      align-self: $align-self;
+    }
+  }
+
+  &.order {
+    order: 1;
+  }
+
+  &.grow {
+    flex-grow: 1;
+  }
+
+  &.shrink {
+    flex-shrink: 1;
+  }
+
+  &.flex-basis {
+    flex-basis: auto;
+  }
+}

@@ -1,0 +1,26 @@
+@import "./variables/typography.scss";
+
+
+.font {
+  @each $font-size in $font-size-list {
+    $name: nth($font-size, 1);
+    $value: nth($font-size, 2);
+
+    &.#{$name} {
+      font-size: $value;
+    }
+  }
+
+  @each $font-weight in $font-weight-list {
+    $name: nth($font-weight, 1);
+    $value: nth($font-weight, 2);
+
+    &.#{$name} {
+      font-weight: $value;
+    }
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+}
