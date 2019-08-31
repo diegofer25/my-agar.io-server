@@ -3,14 +3,13 @@ module.exports = {
     port: process.env.PORT || 3000
   },
 
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa'
-  ],
+  router: {
+    middleware: 'i18n'
+  },
 
-  plugins: [
-    '~/plugins/axios',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
+
+  plugins: ['~/plugins/axios', '~/plugins/i18n'],
 
   manifest: {
     name: 'Purrinha Online',
@@ -25,6 +24,8 @@ module.exports = {
     '/api/': process.env.API_URL || 'http://localhost:4000'
   },
 
+  css: ['@/assets/scss/main.scss'],
+
   head: {
     meta: [
       { charset: 'utf-8' },
@@ -32,10 +33,28 @@ module.exports = {
       { title: 'Purrinha Online' }
     ],
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Roboto'
+      }
     ],
-    script: [
-      { src: 'http://localhost:5000/socket.io/socket.io.js' }
-    ]
+    script: [{ src: 'http://localhost:5000/socket.io/socket.io.js' }]
+  },
+
+  build: {
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/,
+          options: {
+            fix: true
+          }
+        });
+      }
+    }
   }
-}
+};

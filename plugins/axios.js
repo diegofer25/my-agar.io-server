@@ -1,12 +1,12 @@
-export default function ({ $axios, redirect, error }) {
+export default function({ $axios, redirect }) {
   $axios.onRequest(config => {
-    console.log('Making request to ' + config.url)
-  })
+    console.log('Making request to ' + config.url);
+  });
 
   $axios.onError(error => {
-    const code = parseInt(error.response && error.response.status)
+    const code = parseInt(error.response && error.response.status);
     if (code === 404 || code === 500) {
-      redirect(`/error?status=${code}`)
+      redirect(`/error?status=${code}`);
     }
-  })
+  });
 }
