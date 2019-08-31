@@ -1,10 +1,17 @@
 {
-  "appName": "Stick Game Online",
   "language": "Language",
   "players": "Players",
   "rooms": "Rooms",
   "home": {
     "menu": "Menu"
   },
-  "love": "love"
+  "locales": {
+    "pt-br": "Brazillian Portuguese",
+    "en": "English",
+    "es": "Spanish",
+    "hi": "Indian",
+    "ru": "Russian",
+    "ar": "Arabic",
+    "zh": "Chinese"
+  }
 }

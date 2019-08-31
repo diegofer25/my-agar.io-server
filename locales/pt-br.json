@@ -5,5 +5,14 @@
   "rooms": "Salas",
   "home": {
     "menu": "Menu"
+  },
+  "locales": {
+    "pt-br": "Portugues Brasileiro",
+    "en": "Ingles",
+    "es": "Espanhol",
+    "hi": "Indiano",
+    "ru": "Russo",
+    "ar": "Arabe",
+    "zh": "Chines"
   }
 }

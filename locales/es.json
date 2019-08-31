@@ -1,0 +1,17 @@
+{
+	"language": "Idioma",
+	"players": "Los jugadores",
+	"rooms": "Las habitaciones",
+	"home": {
+		"menu": "Menú"
+	},
+	"locales": {
+		"pt-br": "Brasileña Portugués",
+		"en": "Inglés",
+		"es": "Español",
+		"hi": "India",
+		"ru": "Ruso",
+		"ar": "Árabe",
+		"zh": "Chino"
+	}
+}
