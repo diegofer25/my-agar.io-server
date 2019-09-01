@@ -1,16 +1,13 @@
 <template>
   <div class="flex column wrap">
     <div class="flex-item grow">
-        <div class="flex row justify-center mb-md">
-          <p class="font headline my-none" v-text="$t('home.menu')"></p>
-        </div>
       <div class="flex row justify-center mr-sm mb-md">
-        <span v-text="$t('players')"></span>: <b class="ml-xs" v-text="statistics.playersCount"></b>
+        <span v-text="$t('home.players')"></span>: <b class="ml-xs" v-text="statistics.playersCount"></b>
         <span class="mx-sm">|</span>
-        <span v-text="$t('rooms')"></span>: <b class="ml-xs" v-text="statistics.roomsCount"></b>
+        <span v-text="$t('home.rooms')"></span>: <b class="ml-xs" v-text="statistics.roomsCount"></b>
       </div>
       <div class="flex row justify-center">
-        <app-button class="text-white" :text="$t('home.create-room')" color="teal" />
+        <app-button :nuxt-link="`/${locale}/game`" class="text-black" :text="$t('home.play')" color="white" full-width />
       </div>
     </div>
   </div>
@@ -27,6 +24,7 @@ export default {
     AppButton
   },
   computed: {
+    ...mapState(['locale']),
     ...mapState('app', ['statistics'])
   },
   async mounted() {
@@ -38,4 +36,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>
