@@ -5,7 +5,7 @@
   $bp: nth($breakpoint, 1);
 
   @each $align in $align-list {
-    p.text-#{$bp}-#{$align} {
+    .text-#{$bp}-#{$align} {
       width: 100%;
 
       @include breakpoint($bp) {

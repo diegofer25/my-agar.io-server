@@ -1,5 +1,5 @@
 {
-  "name": "purrinha-client",
+  "name": "web-game-client",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,9 +9,6 @@
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "generate-translations": "node ./core/generate-translations"
   },
-  "keywords": [
-    "purrinha"
-  ],
   "author": "Diego Lamarão",
   "license": "ISC",
   "dependencies": {

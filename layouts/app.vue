@@ -1,13 +1,21 @@
 <template>
-  <div class="app-layout flex column">
+  <div class="app-layout flex column mt-sm">
     <div class="flex-item grow">
       <div class="flex row justify-flex-end">
-        <app-select :label="$t('language')" :items="locales" :value="locale" @input="changeLanguage"/>
+        <app-select
+          class="mr-sm"
+          :label="$t('language')"
+          :items="formatedLocales"
+          :value="locale"
+          field-text="text"
+          field-value="value"
+          @input="changeLanguage"
+        />
       </div>
     </div>
     <div class="flex-item grow">
       <div class="flex row justify-center">
-        <h1 class="font display-2" v-text="$t('appName')"></h1>
+        <h1 class="font display-2 medium text-xs-center my-md" v-text="appName"></h1>
       </div>
     </div>
     <div class="flex-item grow fill-height">
@@ -21,20 +29,24 @@ import { mapActions, mapState } from 'vuex';
 import { AppSelect } from '@/components/atoms';
 
 export default {
-  name: 'PurrinhaApp',
+  name: 'App',
   components: {
     AppSelect
   },
   computed: {
-    ...mapState(['locales', 'locale'])
-  },
-  mounted() {
-    this.initializeSocket(window.io);
+    ...mapState(['locales', 'locale', 'appName']),
+    formatedLocales () {
+      return this.locales.map(locale => {
+        return {
+          text: this.$t(`locales.${locale}`),
+          value: locale
+        };
+      });
+    }
   },
   methods: {
     ...mapActions(['changeLanguage']),
-    ...mapActions('app', ['initializeSocket'])
-  }
+  },
 };
 </script>
 

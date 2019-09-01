@@ -1,4 +1,10 @@
+const env = {
+  appName: 'Stick Games'
+}
+
 module.exports = {
+  env,
+
   server: {
     port: process.env.PORT || 3000
   },
@@ -12,7 +18,7 @@ module.exports = {
   plugins: ['~/plugins/axios', '~/plugins/i18n'],
 
   manifest: {
-    name: 'Purrinha Online',
+    name: env.appName,
     lang: 'pt-br'
   },
 
@@ -30,7 +36,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Purrinha Online' }
+      { title: env.appName }
     ],
     link: [
       {
