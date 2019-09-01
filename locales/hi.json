@@ -3,7 +3,8 @@
 	"players": "खिलाड़ियों",
 	"rooms": "कमरे",
 	"home": {
-		"menu": "मेनू"
+		"menu": "मेनू",
+		"create-room": "कमरे बनाने"
 	},
 	"locales": {
 		"pt-br": "Brazillian पुर्तगाली",

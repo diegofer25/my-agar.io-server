@@ -1,10 +1,10 @@
 {
-  "appName": "Purrinha Online",
   "language": "Idioma",
   "players": "Jogadores",
   "rooms": "Salas",
   "home": {
-    "menu": "Menu"
+    "menu": "Menu",
+    "create-room": "Criar Sala"
   },
   "locales": {
     "pt-br": "Portugues Brasileiro",

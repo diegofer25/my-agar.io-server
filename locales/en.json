@@ -3,7 +3,8 @@
   "players": "Players",
   "rooms": "Rooms",
   "home": {
-    "menu": "Menu"
+    "menu": "Menu",
+    "create-room": "Create Room"
   },
   "locales": {
     "pt-br": "Brazillian Portuguese",
