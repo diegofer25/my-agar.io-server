@@ -1,12 +1,13 @@
 <template>
   <div class="flex row">
     <span class="mr-xs" v-text="label"></span>
-    <select :value="value" @input="$emit('input', $event.target.value)">
+    <select @input="$emit('input', $event.target.value)">
       <option
-        :selected="value === (field ? item[field] : item)"
+        :selected="value === (fieldValue ? item[fieldValue] : item)"
+        :value="fieldValue ? item[fieldValue] : item"
         v-for="item of items"
-        :key="item"
-        v-text="field ? item[field] : item"
+        :key="fieldValue ? item[fieldValue] : item"
+        v-text="fieldText ? item[fieldText] : item"
       ></option>
     </select>
   </div>
@@ -24,7 +25,8 @@ export default {
     value: {
       type: [String, Number, () => {}]
     },
-    field: String
+    fieldText: String,
+    fieldValue: String
   }
 };
 </script>
