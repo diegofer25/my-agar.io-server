@@ -1,5 +1,5 @@
 const env = {
-  appName: 'Stick Games'
+  appName: 'Whatever.io'
 }
 
 module.exports = {
@@ -42,9 +42,15 @@ module.exports = {
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Roboto'
+      },
+      {
+        href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+        rel: "stylesheet"
       }
     ],
-    script: [{ src: 'http://localhost:5000/socket.io/socket.io.js' }]
+    script: [
+      { src: 'http://localhost:5000/socket.io/socket.io.js' }
+    ]
   },
 
   build: {

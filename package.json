@@ -7,7 +7,7 @@
     "dev": "nuxt",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "generate-translations": "node ./core/generate-translations"
+    "translations": "node ./core/generate-translations"
   },
   "author": "Diego Lamarão",
   "license": "ISC",
