@@ -1,10 +1,9 @@
 {
 	"language": "भाषा",
-	"players": "खिलाड़ियों",
-	"rooms": "कमरे",
 	"home": {
-		"menu": "मेनू",
-		"create-room": "कमरे बनाने"
+		"play": "खेल",
+		"players": "खिलाड़ियों",
+		"rooms": "कमरे"
 	},
 	"locales": {
 		"pt-br": "Brazillian पुर्तगाली",

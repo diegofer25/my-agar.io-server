@@ -1,10 +1,9 @@
 {
   "language": "Idioma",
-  "players": "Jogadores",
-  "rooms": "Salas",
   "home": {
-    "menu": "Menu",
-    "create-room": "Criar Sala"
+    "play": "Jogar",
+    "players": "Jogadores",
+    "rooms": "Salas"
   },
   "locales": {
     "pt-br": "Portugues Brasileiro",

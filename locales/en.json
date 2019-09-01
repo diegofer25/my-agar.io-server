@@ -1,10 +1,9 @@
 {
   "language": "Language",
-  "players": "Players",
-  "rooms": "Rooms",
   "home": {
-    "menu": "Menu",
-    "create-room": "Create Room"
+    "play": "Play",
+    "players": "Players",
+    "rooms": "Rooms"
   },
   "locales": {
     "pt-br": "Brazillian Portuguese",

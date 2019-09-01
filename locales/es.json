@@ -1,10 +1,9 @@
 {
 	"language": "Idioma",
-	"players": "Los jugadores",
-	"rooms": "Las habitaciones",
 	"home": {
-		"menu": "Menú",
-		"create-room": "Crear Un Espacio"
+		"play": "Jugar",
+		"players": "Los jugadores",
+		"rooms": "Las habitaciones"
 	},
 	"locales": {
 		"pt-br": "Brasileña Portugués",

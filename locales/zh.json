@@ -1,10 +1,9 @@
 {
 	"language": "语言",
-	"players": "玩家",
-	"rooms": "房间",
 	"home": {
-		"menu": "菜单",
-		"create-room": "创建的房间"
+		"play": "玩",
+		"players": "玩家",
+		"rooms": "房间"
 	},
 	"locales": {
 		"pt-br": "巴西葡萄牙",
