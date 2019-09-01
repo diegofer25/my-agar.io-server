@@ -13,21 +13,24 @@ export default {
     });
   },
 
-  initializeSocket({ commit, state }, io) {
+  initializeSocket({ dispatch }, io) {
     const { socketService } = new Services({ io });
+    dispatch('listenPlayers', socketService);
+  },
+
+  listenPlayers({ commit, state }, socketService) {
     socketService.listen('addPlayerStatistic', (socketId) => {
-      if (!state.socketId) {
-        commit('SET_SOCKET_ID', socketId);
-      } else if (state.socketId !== socketId) {
+      if (socketService.socketId !== socketId) {
         commit('SET_STATISTICS', { playersCount: state.statistics.playersCount + 1 });
+      } else {
+        commit('SET_SOCKET_ID', socketId);
       }
     });
 
     socketService.listen('removePlayerStatistic', (socketId) => {
-      if (state.socketId === socketId) {
-        commit('SET_SOCKET_ID', '');
+      if (socketService.socketId !== socketId) {
+        commit('SET_STATISTICS', { playersCount: state.statistics.playersCount - 1 });
       }
-      commit('SET_STATISTICS', { playersCount: state.statistics.playersCount - 1 });
     });
   }
 };

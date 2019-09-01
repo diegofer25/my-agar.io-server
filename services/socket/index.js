@@ -11,7 +11,7 @@ export default class SocketService {
     this.socket.emit(event, payload);
   }
 
-  get clientId () {
+  get socketId () {
     return this.socket.id;
   }
 }
