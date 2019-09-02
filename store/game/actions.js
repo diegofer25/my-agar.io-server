@@ -5,7 +5,7 @@ export default {
     const gameLoop = setInterval(() => {
 
       ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
-      dispatch('handleMousePosition');
+      dispatch('checkMove');
 
       if (state.game.over) {
         clearInterval(gameLoop);
@@ -14,9 +14,10 @@ export default {
     }, state.game.loop);
   },
 
-  handleMousePosition ({ state, commit }) {
-    const [ mouseX, mouseY ] = state.mousePosition;
-    commit('SET_PLAYERS', state.players.map(player => {
+  checkMove ({ state, getters, dispatch }) {
+    const player = getters.getPlayer;
+    if (player) {
+      const [ mouseX, mouseY ] = state.mousePosition;
       const { speed, position, length } = player;
       var [ x, y ] = position;
       if (mouseX - length / 2 > x) {
@@ -30,13 +31,21 @@ export default {
       } else if (mouseY + length/2 < y - length) {
         y -= speed;
       }
-      return { ...player, position: [x, y] };
-    }));
+      dispatch('sendMove', { id: player.id, position: [x, y] });
+    }
   },
 
-  initializeSocket({ dispatch }, io) {
+  sendMove ({ commit, getters }, player) {
+    this.socketService.emit('player-move', player, () => {
+      commit('SET_PLAYER', { ...getters.getPlayer, position: player.position });
+    });
+  },
+
+  initializeSocket({ dispatch, commit }, io) {
     const { socketService } = new Services({ io });
     socketService.listen('connect', () => {
+      this.socketService = socketService;
+      commit('SET_SOCKET_ID', socketService.socketId);
       dispatch('listenPlayers', socketService);
       dispatch('listenPlayersStatistics', socketService);
     });
@@ -44,14 +53,11 @@ export default {
 
   listenPlayers ({ commit, state }, socketService) {
     socketService.listen('updatePlayers', (players) => {
-      if (players.some(p => p.id === socketService.socketId)) {
-        commit('SET_SOCKET_ID', players.find(p => p.id === socketService.socketId).id);
-      }
       commit('SET_PLAYERS', players);
     });
 
     socketService.listen('removePlayer', (id) => {
-      commit('SET_PLAYERS', state.player.filter(player => player.id !== id));
+      commit('SET_PLAYERS', state.players.filter(player => player.id !== id));
     });
   },
 

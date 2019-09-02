@@ -25,12 +25,7 @@ export default {
   },
   computed: {
     ...mapState(['locale', 'statistics'])
-  },
-  watch: {
-    statistics (val) {
-      console.log(val);
-    }
-  },
+  }
 };
 </script>
 

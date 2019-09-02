@@ -7,8 +7,8 @@ export default class SocketService {
     this.socket.on(event, callback);
   }
 
-  emit(event, payload) {
-    this.socket.emit(event, payload);
+  emit(event, payload, callback) {
+    this.socket.emit(event, payload, callback);
   }
 
   get socketId () {

@@ -1,7 +1,7 @@
 export default () => ({
   socketId: '',
   game: {
-    loop: 10,
+    loop: 50,
     over: false
   },
   players: [],
