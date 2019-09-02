@@ -3,11 +3,9 @@
     <div class="flex row justify-center">
       <game-canvas>
         <player
-          :key="player.lastUpdate"
-          :position="player.position"
-          :length="player.length"
-          :color="player.color"
-          @move="handlePlayerMove"
+          v-for="player of players"
+          :key="player.id"
+          :player="player"
         />
       </game-canvas>
     </div>
@@ -21,6 +19,8 @@
 import { player } from '@/components/bosons';
 import { GameCanvas } from '@/components/atoms';
 import { SelectLanguage } from '@/components/molecules';
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'game',
   layout: 'game',
@@ -29,21 +29,15 @@ export default {
     GameCanvas,
     player
   },
-  data() {
-    return {
-      player: {
-        id: 1,
-        position: [10, 10],
-        length: [10, 10],
-        color: '#e92727'
-      }
-    };
+  computed: {
+    ...mapState('game', ['players'])
+  },
+  mounted() {
+    this.initializeSocket(window.io);
   },
   methods: {
-    handlePlayerMove (move) {
-      this.player.position = move;
-    }
-  },
+    ...mapActions('game', ['initializeSocket'])
+  }
 };
 </script>
 

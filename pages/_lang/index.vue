@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import { AppButton } from '@/components/atoms';
 
 export default {
@@ -24,14 +24,12 @@ export default {
     AppButton
   },
   computed: {
-    ...mapState(['locale']),
-    ...mapState('app', ['statistics'])
+    ...mapState(['locale', 'statistics'])
   },
-  async mounted() {
-    await this.loadStatistics();
-  },
-  methods: {
-    ...mapActions('app', ['loadStatistics', 'initializeSocket'])
+  watch: {
+    statistics (val) {
+      console.log(val);
+    }
   },
 };
 </script>

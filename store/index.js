@@ -1,14 +1,23 @@
 export const state = () => ({
   appName: '',
   locales: ['pt-br', 'en', 'zh', 'es', 'hi', 'ar', 'ru'],
-  locale: 'pt-br'
+  locale: 'pt-br',
+  statistics: {
+    playersCount: 0,
+    roomsCount: 0
+  }
 });
 
 export const actions = {
-  nuxtServerInit ({ commit }, { env }) {
+  async nuxtServerInit ({ commit, state }, { env, $axios }) {
     if (env.appName) {
       commit('SET_APP_NAME', env.appName);
     }
+    const data = await $axios.$get('/api/app/statistics');
+    commit('SET_STATISTICS', {
+      playersCount: state.statistics.playersCount + data.playersCount,
+      roomsCount: state.statistics.roomsCount + data.roomsCount
+    });
   },
 
   changeLanguage ({ state }, language) {
@@ -30,5 +39,12 @@ export const mutations = {
 
   SET_APP_NAME (state, appName) {
     state.appName = appName;
+  },
+
+  SET_STATISTICS(state, { playersCount, roomsCount }) {
+    state.statistics = {
+      playersCount: state.statistics.playersCount + playersCount,
+      roomsCount: state.statistics.roomsCount + roomsCount
+    };
   }
 };

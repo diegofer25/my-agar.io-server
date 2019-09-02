@@ -1,61 +1,50 @@
+import { handleEvents } from '@/mixins';
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   inject: ['provider'],
+  mixins: [handleEvents],
+  computed: {
+    ...mapState('game', ['socketId'])
+  },
   data() {
     return {
-      keysPressed: [],
-      keys: [37, 38, 39, 40]
+      mousePosition: [-25, -25]
     };
   },
   props: {
-    position: {
-      type: Array,
-      required: true
-    },
-    length: {
-      type: Array,
+    player: {
+      type: Object,
       required: true
     },
     color: String
   },
   mounted() {
-    document.addEventListener('keydown', (e) => {
-      if (this.keys.includes(e.keyCode)) {
-        this.keysPressed.push(e.keyCode);
-      }
-    });
-    document.addEventListener('keyup', (e) => {
-      if (this.keysPressed.includes(e.keyCode)) {
-        this.keysPressed = this.keysPressed.filter(key => key !== e.keyCode);
-      }
-    });
-
-    setInterval(this.playerLoop, 100);
-  },
-  methods: {
-    playerLoop () {
-      this.handlerPlayerMove(this.keysPressed);
-    },
-
-    handlerPlayerMove (keys) {
-      const [ x, y ] = this.position;
-      keys.forEach(key => {
-        if (key === 37) {
-          this.$emit('move', [ x - 1, y ]);
-        } else if (key === 38) {
-          this.$emit('move', [ x, y - 1 ]);
-        } else if (key === 39) {
-          this.$emit('move', [ x + 1, y ]);
-        } else if (key === 40) {
-          this.$emit('move', [ x, y + 1 ]);
-        }
+    if (this.player.id === this.socketId) {
+      this.listenEvent('mousemove', ({ x, y }) => {
+        this.setMousePosition([ x - this.player.length / 2, y - this.player.length / 2 ]);
       });
     }
   },
-  render () {
-    if(!this.provider.ctx) return;
-    const ctx = this.provider.ctx;
+  methods: {
+    ...mapMutations('game', { setMousePosition: 'SET_MOUSE_POSITION' }),
 
-    ctx.fillStyle = this.color || '#000000';
-	  ctx.fillRect(...this.position, ...this.length);
+    drawPlayer (player) {
+      const ctx = this.provider.ctx;
+
+      ctx.beginPath();
+      ctx.arc(...player.position, player.length, 0, 3 * Math.PI, false);
+      ctx.fillStyle = player.color || '#000000';
+      ctx.shadowOffsetX = 5;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowBlur = 4;
+      ctx.shadowColor = 'rgba(204, 204, 204, 0.7)';
+      ctx.fill();
+    },
+  },
+  render () {
+    if(this.provider.ctx) {
+      this.drawPlayer(this.player);
+    }
   }
 };

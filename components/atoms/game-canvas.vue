@@ -3,23 +3,20 @@
     <canvas
       ref="canvas"
       id="canvas"
-      :width="canvasWidth"
-      :height="canvasHeight"
+      :width="canvas.width"
+      :height="canvas.height"
     ></canvas>
     <slot />
   </div>
 </template>
 
 <script>
+import { mapMutations, mapActions, mapState, mapGetters } from 'vuex';
 export default {
   name: 'game-canvas',
   data: () => ({
-    canvasHeight: 0,
-    canvasWidth: 0,
     provider: {
-      ctx: null,
-      canvasHeight: 0,
-      canvasWidth: 0,
+      ctx: null
     }
   }),
   provide () {
@@ -28,21 +25,29 @@ export default {
     };
   },
   mounted() {
-    this.canvasHeight = window.innerHeight;
-    this.canvasWidth = window.innerWidth;
+    this.setCanvas({ height: window.innerHeight, width: window.innerWidth });
+    this.setPlayer({
+      ...this.getPlayer,
+      position: [
+        window.innerHeight / 2,
+        window.innerWidth / 2
+      ]
+    });
 
     this.provider.ctx = this.$refs.canvas.getContext('2d');
-    this.provider.canvasHeight = this.canvasHeight;
-    this.provider.canvasWidth = this.canvasWidth;
-  },
-  beforeUpdate() {
-    if (this.provider.ctx) {
-      this.provider.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    }
+
+    this.startGame(this.provider.ctx);
   },
   computed: {
+    ...mapState('game', ['canvas']),
+    ...mapGetters('game', ['getPlayer'])
   },
   methods: {
+    ...mapActions('game', ['startGame']),
+    ...mapMutations('game', {
+      setPlayer: 'SET_PLAYER',
+      setCanvas: 'SET_CANVAS'
+    }),
   }
 };
 </script>
