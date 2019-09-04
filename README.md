@@ -1,4 +1,3 @@
 # My Agar.io server
 
-npm i
-npm run dev
+`npm i` and `npm run dev`
