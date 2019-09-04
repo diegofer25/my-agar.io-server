@@ -1,13 +1,7 @@
 <template>
   <div class="game flex column">
     <div class="flex row justify-center">
-      <game-canvas>
-        <player
-          v-for="player of players"
-          :key="player.id"
-          :player="player"
-        />
-      </game-canvas>
+      <game-canvas v-if="connected"/>
     </div>
     <div class="language flex row justify-flex-end mr-xs">
       <select-language />
@@ -16,7 +10,6 @@
 </template>
 
 <script>
-import { player } from '@/components/bosons';
 import { GameCanvas } from '@/components/atoms';
 import { SelectLanguage } from '@/components/molecules';
 import { mapState, mapActions } from 'vuex';
@@ -26,14 +19,15 @@ export default {
   layout: 'game',
   components: {
     SelectLanguage,
-    GameCanvas,
-    player
+    GameCanvas
   },
   computed: {
-    ...mapState('game', ['players'])
+    ...mapState('game', ['connected'])
   },
   mounted() {
-    this.initializeSocket(window.io);
+    if (!this.socketId) {
+      this.initializeSocket(window.io);
+    }
   },
   methods: {
     ...mapActions('game', ['initializeSocket'])

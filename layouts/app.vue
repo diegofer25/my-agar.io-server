@@ -48,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .app-layout {
   height: 100vh;
-  background: url('/wallpaper.png') center no-repeat;
+  background: url('/images/wallpaper.png') center no-repeat;
   background-size: cover;
   .app-container {
     background-color: rgba(0, 0, 0, 0.7);

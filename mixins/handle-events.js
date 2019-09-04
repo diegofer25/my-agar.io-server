@@ -1,11 +1,5 @@
-export default {
-  methods: {
-    listenEvent (name, callback) {
-      document.addEventListener(name, callback);
-    },
+import { handleEvents } from '@/utils';
 
-    stopEvent (name, callback) {
-      document.removeEventListener(name, callback);
-    }
-  },
+export default {
+  methods: handleEvents,
 };

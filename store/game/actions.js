@@ -1,43 +1,26 @@
 import Services from './../../services';
+import { handleEvents } from '@/utils';
 
 export default {
   startGame({ dispatch, state }, ctx) {
-    const gameLoop = setInterval(() => {
+    this.ctx = ctx;
+    const { gameService } = new Services(this);
 
-      ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
-      dispatch('checkMove');
+    dispatch('listenPlayerControls');
 
-      if (state.game.over) {
-        clearInterval(gameLoop);
-      }
+    gameService.start();
 
-    }, state.game.loop);
+    gameService.onServerUpdate(() => {
+      this.socketService.emit('player-move', state.mousePosition);
+    });
   },
 
-  checkMove ({ state, getters, dispatch }) {
-    const player = getters.getPlayer;
-    if (player) {
+  listenPlayerControls ({ commit, state }) {
+    handleEvents.listenEvent('mousemove', ({ x, y }) => {
       const [ mouseX, mouseY ] = state.mousePosition;
-      const { speed, position, length } = player;
-      var [ x, y ] = position;
-      if (mouseX - length / 2 > x) {
-        x += speed;
-      } else if (mouseX + length/2 < x - length) {
-        x -= speed;
+      if (mouseX.x !== x || mouseY.y !== y) {
+        commit('SET_MOUSE_POSITION', [x, y]);
       }
-
-      if (mouseY - length / 2 > y) {
-        y += speed;
-      } else if (mouseY + length/2 < y - length) {
-        y -= speed;
-      }
-      dispatch('sendMove', { id: player.id, position: [x, y] });
-    }
-  },
-
-  sendMove ({ commit, getters }, player) {
-    this.socketService.emit('player-move', player, () => {
-      commit('SET_PLAYER', { ...getters.getPlayer, position: player.position });
     });
   },
 
@@ -45,19 +28,8 @@ export default {
     const { socketService } = new Services({ io });
     socketService.listen('connect', () => {
       this.socketService = socketService;
-      commit('SET_SOCKET_ID', socketService.socketId);
-      dispatch('listenPlayers', socketService);
       dispatch('listenPlayersStatistics', socketService);
-    });
-  },
-
-  listenPlayers ({ commit, state }, socketService) {
-    socketService.listen('updatePlayers', (players) => {
-      commit('SET_PLAYERS', players);
-    });
-
-    socketService.listen('removePlayer', (id) => {
-      commit('SET_PLAYERS', state.players.filter(player => player.id !== id));
+      commit('SET_CONNECTED', true);
     });
   },
 

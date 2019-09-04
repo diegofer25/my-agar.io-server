@@ -11,43 +11,43 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   name: 'game-canvas',
   data: () => ({
-    provider: {
-      ctx: null
+    canvas: {
+      width: innerWidth,
+      height: innerHeight
     }
   }),
-  provide () {
-    return {
-      provider: this.provider,
-    };
-  },
   mounted() {
-    this.setCanvas({ height: window.innerHeight, width: window.innerWidth });
-    this.setPlayer({
-      ...this.getPlayer,
-      position: [
-        window.innerHeight / 2,
-        window.innerWidth / 2
-      ]
+    window.addEventListener('resize', ({ target }) => {
+      this.canvas = {
+        width: target.innerWidth,
+        height: target.innerHeight
+      };
     });
-
-    this.provider.ctx = this.$refs.canvas.getContext('2d');
-
-    this.startGame(this.provider.ctx);
-  },
-  computed: {
-    ...mapState('game', ['canvas']),
-    ...mapGetters('game', ['getPlayer'])
+    this.start();
   },
   methods: {
     ...mapActions('game', ['startGame']),
-    ...mapMutations('game', {
-      setPlayer: 'SET_PLAYER',
-      setCanvas: 'SET_CANVAS'
-    }),
+    start () {
+      const canvas = this.$refs.canvas;
+      canvas.oncontextmenu = function (e) {
+        e.preventDefault();
+      };
+      const ctx = canvas.getContext('2d');
+      ctx.circle = function ({x, y}, radius) {
+        this.arc(x, y, radius, 0, Math.PI*2);
+      };
+      ctx.draw = function (callback) {
+        this.save();
+        callback(this);
+        this.restore();
+      };
+
+      this.startGame(ctx);
+    }
   }
 };
 </script>
