@@ -56,5 +56,6 @@ export default {
 @import "@/assets/scss/variables/colors";
 #canvas {
   background: $white;
+  cursor: crosshair;
 }
 </style>

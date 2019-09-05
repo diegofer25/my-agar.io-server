@@ -1,18 +1,18 @@
-@import "./mixins/breakpoints.scss";
-@import "./variables/common.scss";
+// @import "./mixins/breakpoints.scss";
+// @import "./variables/common.scss";
 
 .fill-height {
   height: 100% !important;
 }
 
-@each $breakpoint in $breakpoint-list {
-  $bp: nth($breakpoint, 1);
+// @each $breakpoint in $breakpoint-list {
+//   $bp: nth($breakpoint, 1);
 
-  @each $number in $numbers-list {
-    .#{$bp}-#{$number} {
-      @include breakpoint($bp) {
-        flex-basis: calc((100% / 12) * $number);
-      }
-    }
-  }
-}
+//   @each $number in $numbers-list {
+//     .#{$bp}-#{$number} {
+//       @include breakpoint($bp) {
+//         flex-basis: calc(100% / 12 * $number);
+//       }
+//     }
+//   }
+// }

@@ -2,7 +2,7 @@ import Services from './../../services';
 import { handleEvents } from '@/utils';
 
 export default {
-  startGame({ dispatch, state }, ctx) {
+  startGame({ dispatch, commit, getters }, ctx) {
     this.ctx = ctx;
     const { gameService } = new Services(this);
 
@@ -10,16 +10,22 @@ export default {
 
     gameService.start();
 
-    gameService.onServerUpdate(() => {
-      this.socketService.emit('player-move', state.mousePosition);
+    gameService.onServerUpdate(({ players }) => {
+      commit('SET_PLAYERS', players);
+      if (getters.player.live) {
+        this.socketService.emit('player-move', getters.mouseDirection);
+      }
     });
   },
 
-  listenPlayerControls ({ commit, state }) {
+  listenPlayerControls ({ commit, state, getters }) {
     handleEvents.listenEvent('mousemove', ({ x, y }) => {
-      const [ mouseX, mouseY ] = state.mousePosition;
-      if (mouseX.x !== x || mouseY.y !== y) {
-        commit('SET_MOUSE_POSITION', [x, y]);
+      if (
+        (state.mousePosition.x !== x ||
+        state.mousePosition.y !== y) &&
+        getters.player.live
+      ) {
+        commit('SET_MOUSE_POSITION', { x, y });
       }
     });
   },
@@ -27,9 +33,10 @@ export default {
   initializeSocket({ dispatch, commit }, io) {
     const { socketService } = new Services({ io });
     socketService.listen('connect', () => {
-      this.socketService = socketService;
       dispatch('listenPlayersStatistics', socketService);
+      commit('SET_SOCKET_ID', socketService.id);
       commit('SET_CONNECTED', true);
+      this.socketService = socketService;
     });
   },
 
