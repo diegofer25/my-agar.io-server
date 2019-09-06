@@ -1,5 +1,5 @@
 const env = {
-  appName: 'Whatever.io'
+  appName: 'AgarioClone.io'
 }
 
 module.exports = {
@@ -15,7 +15,10 @@ module.exports = {
 
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
 
-  plugins: ['~/plugins/axios', '~/plugins/i18n'],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/i18n'
+  ],
 
   manifest: {
     name: env.appName,

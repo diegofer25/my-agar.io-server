@@ -3,3 +3,4 @@ sw.*
 .env
 .nuxt
 package-lock.json
+configs.js
