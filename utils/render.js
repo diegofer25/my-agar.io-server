@@ -4,6 +4,16 @@ export default class Render {
     this.world = { x: width, y: height };
     this.draws = [];
     this.rendering = false;
+    this.themes =  {
+      dark: {
+        bgColor: '#151515',
+        line: 'rgba(255, 255, 255, 0.5)'
+      },
+      light: {
+        bgColor: 'rgb(240, 240, 240)',
+        line: 'rgba(0, 0, 0, 0.5)'
+      }
+    };
   }
 
   start () {
@@ -27,5 +37,6 @@ export default class Render {
 
   add (draw) {
     this.draws.push(draw);
+    return this;
   }
 }

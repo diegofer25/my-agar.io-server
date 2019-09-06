@@ -7,13 +7,22 @@ export default class GameService {
     this.gameFrame = 50;
     this.players = [];
     this.foods = [];
-    this.render = new Render({ ctx, width: 4000, height: 4000 });
+    this.render = new Render({
+      ctx,
+      width: 4000,
+      height: 4000
+    });
     this.socketService = socketService;
     this.jobs = [];
+    this.theme = 'light';
   }
 
   get currentPlayer () {
     return this.players.find(p => p.id === this.socketService.socketId) || {};
+  }
+
+  setTheme (theme) {
+    this.theme = theme;
   }
 
   start () {
@@ -25,10 +34,13 @@ export default class GameService {
       }
       if (!this.playing) {
         this.playing = true;
-        this.render.add(this.drawBackGround.bind(this));
-        // this.render.add(this.renderFoods.bind(this));
-        // this.render.add(this.renderPlayers.bind(this));
-        this.render.start();
+        this.render.add((renderContext) => {
+          renderContext.ctx.draw(() => {
+            this.drawBackGround(renderContext);
+            this.drawFoods(renderContext);
+            this.drawPlayers(renderContext);
+          });
+        }).start();
       }
     });
   }
@@ -37,32 +49,31 @@ export default class GameService {
     this.jobs.push(callback);
   }
 
-  drawBackGround ({ ctx, world }) {
-    ctx.draw(() => {
-      ctx.translate(innerWidth/2, innerHeight/2);
-      ctx.scale(this.currentPlayer.scaleVision, this.currentPlayer.scaleVision);
-      const { x, y } = this.currentPlayer.position;
-      ctx.translate(-x, -y);
+  drawBackGround ({ ctx, world, themes }) {
+    ctx.fillStyle = themes[this.theme].bgColor;
+    ctx.fillRect(0, 0, innerWidth, innerHeight);
+    ctx.translate(innerWidth / 2, innerHeight / 2);
+    ctx.scale(this.currentPlayer.scaleVision, this.currentPlayer.scaleVision);
+    const { x, y } = this.currentPlayer.position;
+    ctx.translate(-x, -y);
 
-      ctx.beginPath();
+    ctx.beginPath();
 
-      let gridWidth = 100;
-      let gcount = (world.x/2) / gridWidth;
+    let gridWidth = 200;
+    let gcount = (world.x/2) / gridWidth;
 
-      for(var i=-gcount;i<=gcount;i++){
-        ctx.moveTo(i*gridWidth,-world.x/2);
-        ctx.lineTo(i*gridWidth,world.x/2);
-        ctx.moveTo(-world.y/2,i*gridWidth);
-        ctx.lineTo(world.y/2,i*gridWidth);
-      }
-      ctx.strokeStyle='rgba(0,0,0,0.5)';
-      ctx.stroke();
-      this.renderFoods({ ctx });
-      this.renderPlayers({ ctx });
-    });
+    for(let i = -gcount; i <= gcount; i++){
+      ctx.moveTo(i * gridWidth, -world.x / 2);
+      ctx.lineTo(i * gridWidth, world.x / 2);
+      ctx.moveTo(-world.y / 2, i * gridWidth);
+      ctx.lineTo(world.y / 2, i * gridWidth);
+    }
+
+    ctx.strokeStyle = themes[this.theme].line;
+    ctx.stroke();
   }
 
-  renderPlayers ({ ctx }) {
+  drawPlayers ({ ctx }) {
     this.players.forEach((player) => {
       const { position, radius, color, live } = player;
       if (live) {
@@ -76,7 +87,7 @@ export default class GameService {
     });
   }
 
-  renderFoods ({ ctx }) {
+  drawFoods ({ ctx }) {
     this.foods.forEach((food) => {
       const { position, radius, color } = food;
       ctx.draw(() => {

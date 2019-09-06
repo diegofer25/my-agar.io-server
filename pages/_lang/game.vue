@@ -1,24 +1,24 @@
 <template>
   <div class="game flex column">
+    <div class="rank">
+      <div class="flex row justify-flex-end">
+        rank
+      </div>
+    </div>
     <div class="flex row justify-center">
       <game-canvas v-if="connected"/>
-    </div>
-    <div class="language flex row justify-flex-end mr-xs">
-      <select-language />
     </div>
   </div>
 </template>
 
 <script>
 import { GameCanvas } from '@/components/atoms';
-import { SelectLanguage } from '@/components/molecules';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'game',
   layout: 'game',
   components: {
-    SelectLanguage,
     GameCanvas
   },
   computed: {
@@ -37,12 +37,11 @@ export default {
 
 <style lang="scss" scoped>
 .game {
-  .language {
-    position: relative;
-    .select-language {
-      position: fixed;
-      bottom: 0;
-    }
+  .rank {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 }
 </style>

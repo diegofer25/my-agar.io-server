@@ -12,18 +12,18 @@ export default {
 
     gameService.onServerUpdate(({ players }) => {
       commit('SET_PLAYERS', players);
-      if (getters.player.live) {
-        this.socketService.emit('player-move', getters.mouseDirection);
-      }
+      // if (getters.player.live) {
+      //   this.socketService.emit('player-move', getters.mouseDirection);
+      // }
+      this.socketService.emit('player-move', getters.mouseDirection);
     });
   },
 
-  listenPlayerControls ({ commit, state, getters }) {
+  listenPlayerControls ({ commit, state }) {
     handleEvents.listenEvent('mousemove', ({ x, y }) => {
       if (
         (state.mousePosition.x !== x ||
-        state.mousePosition.y !== y) &&
-        getters.player.live
+        state.mousePosition.y !== y)
       ) {
         commit('SET_MOUSE_POSITION', { x, y });
       }
