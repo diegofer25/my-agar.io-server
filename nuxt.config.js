@@ -1,5 +1,5 @@
 const env = {
-  appName: 'AgarioClone.io'
+  appName: 'Agario.js'
 }
 
 module.exports = {

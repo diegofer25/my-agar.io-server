@@ -15,6 +15,7 @@ export default class GameService {
     this.socketService = socketService;
     this.jobs = [];
     this.theme = 'light';
+    this.gameOverCallBack;
   }
 
   get currentPlayer () {
@@ -32,34 +33,39 @@ export default class GameService {
       for (let job of this.jobs) {
         job(this);
       }
-      if (!this.playing) {
-        this.playing = true;
-        this.render.add((renderContext) => {
-          renderContext.ctx.draw(() => {
-            this.drawBackGround(renderContext);
-            this.drawFoods(renderContext);
-            this.drawPlayers(renderContext);
-          });
-        }).start();
-      }
     });
+    this.playing = true;
+    this.render.add((renderContext) => {
+      renderContext.ctx.draw(() => {
+        this.drawBackGround(renderContext);
+        this.drawFoods(renderContext);
+        this.drawPlayers(renderContext);
+      });
+    }).start();
   }
 
   onServerUpdate (callback) {
     this.jobs.push(callback);
   }
 
+  onGameOver (callback) {
+    this.gameOverCallBack = callback;
+  }
+
   drawBackGround ({ ctx, world, themes }) {
     ctx.fillStyle = themes[this.theme].bgColor;
     ctx.fillRect(0, 0, innerWidth, innerHeight);
     ctx.translate(innerWidth / 2, innerHeight / 2);
-    ctx.scale(this.currentPlayer.scaleVision, this.currentPlayer.scaleVision);
-    const { x, y } = this.currentPlayer.position;
-    ctx.translate(-x, -y);
+
+    if (this.currentPlayer.id) {
+      ctx.scale(this.currentPlayer.scaleVision, this.currentPlayer.scaleVision);
+      const { x, y } = this.currentPlayer.position;
+      ctx.translate(-x, -y);
+    }
 
     ctx.beginPath();
 
-    let gridWidth = 200;
+    let gridWidth = 100;
     let gcount = (world.x/2) / gridWidth;
 
     for(let i = -gcount; i <= gcount; i++){
@@ -83,6 +89,9 @@ export default class GameService {
           ctx.fillStyle = color;
           ctx.fill();
         });
+      } else if (this.playing) {
+        this.playing = false;
+        this.gameOverCallBack(this);
       }
     });
   }

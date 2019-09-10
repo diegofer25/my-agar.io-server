@@ -29,6 +29,6 @@ export default {
   },
 
   player (state) {
-    return state.players.filter(p => p.id === state.socketId);
+    return state.players.find(p => p.id === state.socketId) || {};
   }
 };

@@ -2,8 +2,7 @@
 	"language": "Idioma",
 	"home": {
 		"play": "Jugar",
-		"players": "Los jugadores",
-		"rooms": "Las habitaciones"
+		"players": "Los jugadores"
 	},
 	"locales": {
 		"pt-br": "Brasileña Portugués",
@@ -13,5 +12,12 @@
 		"ru": "Ruso",
 		"ar": "Árabe",
 		"zh": "Chino"
+	},
+	"game": {
+		"rank": "Rango",
+		"score": "Puntuación",
+		"player": "Jugador",
+		"over": "Más De Juego",
+		"playAgain": "Jugar De Nuevo"
 	}
 }

@@ -2,8 +2,7 @@
 	"language": "语言",
 	"home": {
 		"play": "玩",
-		"players": "玩家",
-		"rooms": "房间"
+		"players": "玩家"
 	},
 	"locales": {
 		"pt-br": "巴西葡萄牙",
@@ -13,5 +12,12 @@
 		"ru": "俄罗斯",
 		"ar": "阿拉伯文",
 		"zh": "中国"
+	},
+	"game": {
+		"rank": "排名",
+		"score": "这是你",
+		"player": "播放器",
+		"over": "游戏结束",
+		"playAgain": "再玩一次"
 	}
 }

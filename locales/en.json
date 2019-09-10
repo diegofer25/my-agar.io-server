@@ -2,8 +2,7 @@
   "language": "Language",
   "home": {
     "play": "Play",
-    "players": "Players",
-    "rooms": "Rooms"
+    "players": "Players"
   },
   "locales": {
     "pt-br": "Brazillian Portuguese",
@@ -13,5 +12,12 @@
     "ru": "Russian",
     "ar": "Arabic",
     "zh": "Chinese"
+  },
+  "game": {
+    "rank": "Rank",
+    "score": "Score",
+    "player": "Player",
+    "over": "Game Over",
+    "playAgain": "Play Again"
   }
 }

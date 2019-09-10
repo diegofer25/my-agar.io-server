@@ -13,5 +13,12 @@
     "ru": "Russo",
     "ar": "Arabe",
     "zh": "Chines"
+  },
+  "game": {
+    "rank": "Classificação",
+    "score": "Pontuação",
+    "player": "Jogador",
+    "over": "Fim de Jogo",
+    "playAgain": "Jogar Novamente"
   }
 }

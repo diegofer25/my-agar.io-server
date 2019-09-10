@@ -15,15 +15,29 @@ export default {
       // if (getters.player.live) {
       //   this.socketService.emit('player-move', getters.mouseDirection);
       // }
-      this.socketService.emit('player-move', getters.mouseDirection);
+    });
+
+    setInterval(() => {
+      if (getters.player.live) {
+        this.socketService.emit('player-move', getters.mouseDirection);
+      }
+    }, 1000 / 60);
+
+    gameService.onGameOver(() => {
+      dispatch('processGameOver');
     });
   },
 
-  listenPlayerControls ({ commit, state }) {
+  processGameOver ({ commit }) {
+    commit('SET_GAME_OVER', true);
+  },
+
+  listenPlayerControls ({ commit, state, getters }) {
     handleEvents.listenEvent('mousemove', ({ x, y }) => {
       if (
         (state.mousePosition.x !== x ||
-        state.mousePosition.y !== y)
+        state.mousePosition.y !== y) &&
+        state.socketId && getters.player.live
       ) {
         commit('SET_MOUSE_POSITION', { x, y });
       }
@@ -33,10 +47,10 @@ export default {
   initializeSocket({ dispatch, commit }, io) {
     const { socketService } = new Services({ io });
     socketService.listen('connect', () => {
-      dispatch('listenPlayersStatistics', socketService);
-      commit('SET_SOCKET_ID', socketService.id);
-      commit('SET_CONNECTED', true);
       this.socketService = socketService;
+      dispatch('listenPlayersStatistics', socketService);
+      commit('SET_SOCKET_ID', socketService.socketId);
+      commit('SET_CONNECTED', true);
     });
   },
 
