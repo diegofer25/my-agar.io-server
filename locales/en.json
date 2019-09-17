@@ -2,7 +2,9 @@
   "language": "Language",
   "home": {
     "play": "Play",
-    "players": "Players"
+    "players": "Players",
+    "pickcolor": "Pick a color",
+    "typename": "Type a name"
   },
   "locales": {
     "pt-br": "Brazillian Portuguese",

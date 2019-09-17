@@ -3,7 +3,8 @@
   "home": {
     "play": "Jogar",
     "players": "Jogadores",
-    "rooms": "Salas"
+    "pickcolor": "Escolha um cor",
+    "typename": "Escolha seu nickname"
   },
   "locales": {
     "pt-br": "Portugues Brasileiro",

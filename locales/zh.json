@@ -2,7 +2,9 @@
 	"language": "语言",
 	"home": {
 		"play": "玩",
-		"players": "玩家"
+		"players": "玩家",
+		"pickcolor": "选个颜色",
+		"typename": "类型一个名字"
 	},
 	"locales": {
 		"pt-br": "巴西葡萄牙",

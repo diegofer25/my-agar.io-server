@@ -2,7 +2,9 @@
 	"language": "Idioma",
 	"home": {
 		"play": "Jugar",
-		"players": "Los jugadores"
+		"players": "Los jugadores",
+		"pickcolor": "Elegir un color",
+		"typename": "Escriba un nombre"
 	},
 	"locales": {
 		"pt-br": "Brasileña Portugués",

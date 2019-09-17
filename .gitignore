@@ -4,3 +4,4 @@ sw.*
 .nuxt
 package-lock.json
 configs.js
+/dist

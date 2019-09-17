@@ -2,7 +2,9 @@
 	"language": "اللغة",
 	"home": {
 		"play": "اللعب",
-		"players": "اللاعبين"
+		"players": "اللاعبين",
+		"pickcolor": "اختيار اللون",
+		"typename": "اكتب اسم"
 	},
 	"locales": {
 		"pt-br": "البرتغالية البرازيلية",

@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="flex-item grow mt-sm">
-      <app-button class="text-white" :text="$t('game.playAgain')" color="teal"/>
+      <app-button class="text-white" :text="$t('game.playAgain')" color="teal" @click="playAgain"/>
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@
 <script>
 import { AppButton } from '@/components/atoms';
 import { TweenMax } from 'gsap';
+import { mapActions } from 'vuex';
 export default {
   name: 'game-over',
   components: {
@@ -38,6 +39,9 @@ export default {
   mounted() {
     TweenMax.from(this.$refs.gameover, 0.5, { scale: 1.5 });
     TweenMax.to(this, 2, {computedScore: this.score, delay: 0.5 });
+  },
+  methods: {
+    ...mapActions('game', ['playAgain'])
   },
 };
 </script>

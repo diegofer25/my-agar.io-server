@@ -1,5 +1,6 @@
 <template>
   <button
+    :disabled="disabled"
     class="app-button"
     :class="buttonClasses"
     @click="onClick"
@@ -20,7 +21,6 @@
 </template>
 
 <script>
-import { TweenLite, Power0 } from 'gsap';
 export default {
   name: 'app-button',
   props: {
@@ -29,6 +29,7 @@ export default {
       type: String,
       default: 'blue'
     },
+    disabled: Boolean,
     fullWidth: Boolean,
     icon: String,
     nuxtLink: String
@@ -42,18 +43,16 @@ export default {
       if (this.fullWidth) {
         classes.push('full-width');
       }
+      if (this.disabled) {
+        classes.push('disabled');
+      }
       return classes;
     }
   },
   methods: {
     onClick (event) {
       if (this.nuxtLink) {
-        const doc = document.documentElement;
-        TweenLite.to(doc, 1, { ease: Power0.easeNone, rotation: 360, scale: -0.1 });
-        TweenLite.to(doc, 1, { ease: Power0.easeNone, rotation: 360, scale: 1, delay: 1 });
-        setTimeout(() => {
-          this.$router.push(this.nuxtLink);
-        }, 800);
+        this.$router.push(this.nuxtLink);
       } else {
         this.$emit('click', event);
       }
@@ -77,10 +76,23 @@ export default {
     }
     &:active {
       transform: scale(0.95);
+      box-shadow: inset 0 0 14px 0px rgba(0, 0, 0, 0.5);
     }
     &:focus {
       outline: none;
       border: none;
+    }
+    &.disabled {
+      background-color: lightgray;
+      color: grey;
+      &:active {
+        transform: scale(1);
+        box-shadow: none;
+      }
+      &:hover {
+        opacity: 1;
+        cursor: not-allowed;
+      }
     }
     span {
       padding: 10px 0;

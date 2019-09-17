@@ -2,7 +2,9 @@
 	"language": "भाषा",
 	"home": {
 		"play": "खेल",
-		"players": "खिलाड़ियों"
+		"players": "खिलाड़ियों",
+		"pickcolor": "एक रंग लेने",
+		"typename": "एक प्रकार का नाम"
 	},
 	"locales": {
 		"pt-br": "Brazillian पुर्तगाली",

@@ -66,5 +66,9 @@ export default {
         commit('SET_STATISTICS', { playersCount: this.state.statistics.playersCount - 1 }, { root: true });
       }
     });
+  },
+
+  async playAgain ({ state }) {
+    await this.$axios.$get(`/api/app/play-again?id=${state.socketId}`);
   }
 };

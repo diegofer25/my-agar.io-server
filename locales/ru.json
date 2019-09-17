@@ -2,7 +2,9 @@
 	"language": "Язык",
 	"home": {
 		"play": "Играть",
-		"players": "Игроки"
+		"players": "Игроки",
+		"pickcolor": "Выбрать цвет",
+		"typename": "Введите имя"
 	},
 	"locales": {
 		"pt-br": "Бразильский Португальский",

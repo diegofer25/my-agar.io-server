@@ -1,6 +1,6 @@
 const env = {
   appName: 'Agario.js'
-}
+};
 
 module.exports = {
   env,
@@ -47,8 +47,8 @@ module.exports = {
         href: 'https://fonts.googleapis.com/css?family=Roboto'
       },
       {
-        href: "https://fonts.googleapis.com/icon?family=Material+Icons",
-        rel: "stylesheet"
+        href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
+        rel: 'stylesheet'
       }
     ],
     script: [
@@ -61,9 +61,9 @@ module.exports = {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/,
           options: {
             fix: true
