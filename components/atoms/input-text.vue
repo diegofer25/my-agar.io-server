@@ -1,6 +1,6 @@
 <template>
   <div class="input-text flex row my-sm fill-width">
-    <span class="label" :class="{ focus }" v-text="label" />
+    <small class="label" :class="{ focus }" v-text="label" />
     <input class="input" type="text" @input="$emit('input', $event.target.value)" @focus="onFocus" @blur="onBlur">
   </div>
 </template>
@@ -28,7 +28,6 @@ export default {
     onBlur () {
       if (!this.value) {
         this.focus = false;
-        console.log(this.value);
       }
     }
   },
@@ -41,6 +40,7 @@ export default {
   .label {
     position: absolute;
     bottom: 2px;
+    transition: all 0.5s ease;
     &.focus {
       top: -20px;
     }
@@ -50,9 +50,10 @@ export default {
     color: white;
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    border-bottom: 1px white;
+    border-bottom: 1px grey solid;
     &:focus {
       outline: none;
+      border-bottom: 1px white solid;
     }
   }
 }

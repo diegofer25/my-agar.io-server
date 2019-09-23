@@ -3,7 +3,7 @@
     <div class="flex-item grow">
       <span v-text="label"></span>
     </div>
-    <input class="input ml-sm" type="color">
+    <input class="input ml-sm" @input="$emit('input', $event.target.value)" type="color">
   </div>
 </template>
 

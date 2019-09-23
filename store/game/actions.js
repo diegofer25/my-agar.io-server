@@ -44,13 +44,14 @@ export default {
     });
   },
 
-  initializeSocket({ dispatch, commit }, io) {
-    const { socketService } = new Services({ io });
+  initializeSocket({ dispatch, commit }, { io, player }) {
+    const { socketService } = new Services({ io, player });
     socketService.listen('connect', () => {
       this.socketService = socketService;
       dispatch('listenPlayersStatistics', socketService);
       commit('SET_SOCKET_ID', socketService.socketId);
       commit('SET_CONNECTED', true);
+      this.$router.push(`/${this.state.locale}/game`);
     });
   },
 

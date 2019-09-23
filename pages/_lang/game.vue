@@ -26,11 +26,17 @@
 <script>
 import { GameCanvas, Rank, Score } from '@/components/atoms';
 import { GameOver } from '@/components/molecules';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'game',
   layout: 'game',
+  validate ({ redirect, store }) {
+    if (!store.state.game.socketId) {
+      redirect('/');
+    }
+    return true;
+  },
   components: {
     GameCanvas,
     Rank,
@@ -43,14 +49,6 @@ export default {
     top10players () {
       return this.players.filter((player, index) => index < 10 && player.live);
     }
-  },
-  mounted() {
-    if (!this.socketId) {
-      this.initializeSocket(window.io);
-    }
-  },
-  methods: {
-    ...mapActions('game', ['initializeSocket'])
   }
 };
 </script>

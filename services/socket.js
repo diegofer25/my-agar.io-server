@@ -1,6 +1,9 @@
 export default class SocketService {
-  constructor({ io }) {
-    this.socket = io('ws://localhost:5000', { transports: ['websocket'] });
+  constructor({ io, player }) {
+    this.socket = io.connect('ws://localhost:5000', {
+      transports: ['websocket'],
+      query: `name=${player.name}&color=${player.color}`
+    });
   }
 
   listen(event, callback) {

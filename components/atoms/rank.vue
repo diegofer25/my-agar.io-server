@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="player of players" :key="player.id">
-          <td v-text="player.id"></td>
+          <td v-text="player.name"></td>
           <td v-text="player.score"></td>
         </tr>
       </tbody>
